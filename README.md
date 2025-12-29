@@ -13,7 +13,6 @@ This project implements a scalable data engineering pipeline on **Microsoft Azur
 *Output from the Gold Layer visualization:*
 
 ![Top Rated Movies Chart](chart.png)
-*(Note: Upload your screenshot here and name it chart.png)*
 
 ---
 
