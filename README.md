@@ -47,7 +47,7 @@ graph TD
 * **Ingestion:** Ingested compressed raw data (`.zip`) from Azure Storage.
 * **Extraction:** Implemented a shell-based logic to unzip files on the Databricks driver and re-upload extracted CSVs to the Data Lake.
 
-> **Technical Highlight:** Solving the zipped file ingestion challenge:
+**Technical Highlight:** Solving the zipped file ingestion challenge:
 ```python
 # Moving file to local driver, unzipping via shell, and moving back to DBFS
 import subprocess
