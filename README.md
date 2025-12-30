@@ -9,6 +9,19 @@ This project implements a scalable data engineering pipeline on **Microsoft Azur
 
 **Key Outcome:** Analyzed 100,000+ ratings to identify the highest-rated movies of all time, visualizing the results for business stakeholders.
 
+## 🛠️ Prerequisites
+Before running this pipeline, ensure you have the following:
+
+* **Azure Subscription** (Free Tier or Pay-As-You-Go)
+* **Azure Databricks Workspace** (Standard Tier or higher)
+* **Azure Data Lake Storage Gen2 (ADLS)** account
+* **MovieLens Dataset:** The raw `.zip` file from GroupLens (details below).
+
+### 📂 Data Source
+This project uses the **MovieLens** dataset provided by GroupLens Research.
+* **Source:** [MovieLens Datasets](https://grouplens.org/datasets/movielens/)
+* **Format:** We ingest the raw compressed file (e.g., `ml-latest-small.zip`) directly to demonstrate handling zipped data in the Bronze layer.
+
 ## 🖼️ Analysis Result
 *Output from the Gold Layer visualization:*
 
