@@ -46,7 +46,8 @@ graph TD
 * **Security:** Configured **SAS Token (Shared Access Signature)** for secure, temporary access to Azure Data Lake Gen2 (ADLS), replacing the deprecated "Mounting" method.
 * **Ingestion:** Ingested compressed raw data (`.zip`) from Azure Storage.
 * **Extraction:** Implemented a shell-based logic to unzip files on the Databricks driver and re-upload extracted CSVs to the Data Lake.
-**Technical Highlight:** Solving the zipped file ingestion challenge:
+
+> **Technical Highlight:** Solving the zipped file ingestion challenge:
 ```python
 # Moving file to local driver, unzipping via shell, and moving back to DBFS
 import subprocess
@@ -59,6 +60,7 @@ subprocess.run(["unzip", "-o", "/tmp/data.zip", "-d", "/tmp/extracted"])
 
 # Move CSVs back to ADLS Bronze layer
 dbutils.fs.cp("file:/tmp/extracted/movies.csv", bronze_output_path)
+```ls.fs.cp("file:/tmp/extracted/movies.csv", bronze_output_path)
 ```
 
 ### 2️⃣ Silver Layer (Transformation)
