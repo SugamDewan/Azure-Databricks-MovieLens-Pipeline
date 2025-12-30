@@ -32,12 +32,34 @@ This project uses the **MovieLens** dataset provided by GroupLens Research.
 ## 🏗️ Architecture & Workflow
 The pipeline follows the **Medallion Architecture** (Bronze → Silver → Gold) to ensure data quality and organization.
 
+```mermaid
+graph TD
+    A[Raw Data Source<br>MovieLens .zip] -->|Ingest via SAS Token| B[(ADLS Gen2<br>Bronze Layer)]
+    B -->|Unzip & Extract| C(Databricks Cluster<br>PySpark Processing)
+    C -->|Clean & Transform| D[(ADLS Gen2<br>Silver Layer)]
+    D -->|Aggregate & Join| E[(ADLS Gen2<br>Gold Layer)]
+    E -->|Visualize| F[Business Insights<br>Bar Charts]
+```
 
 
 ### 1️⃣ Bronze Layer (Ingestion & Extraction)
 * **Security:** Configured **SAS Token (Shared Access Signature)** for secure, temporary access to Azure Data Lake Gen2 (ADLS), replacing the deprecated "Mounting" method.
 * **Ingestion:** Ingested compressed raw data (`.zip`) from Azure Storage.
 * **Extraction:** Implemented a shell-based logic to unzip files on the Databricks driver and re-upload extracted CSVs to the Data Lake.
+> **Technical Highlight:** Solving the zipped file ingestion challenge:
+```python
+# Moving file to local driver, unzipping via shell, and moving back to DBFS
+import subprocess
+
+# Copy from ADLS to local driver
+dbutils.fs.cp(zip_source_path, "file:/tmp/data.zip")
+
+# Unzip using shell command
+subprocess.run(["unzip", "-o", "/tmp/data.zip", "-d", "/tmp/extracted"])
+
+# Move CSVs back to ADLS Bronze layer
+dbutils.fs.cp("file:/tmp/extracted/movies.csv", bronze_output_path)
+```
 
 ### 2️⃣ Silver Layer (Transformation)
 * **Schema Enforcement:** Loaded raw CSVs into Spark DataFrames with defined schemas.
