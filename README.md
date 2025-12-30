@@ -60,7 +60,6 @@ subprocess.run(["unzip", "-o", "/tmp/data.zip", "-d", "/tmp/extracted"])
 
 # Move CSVs back to ADLS Bronze layer
 dbutils.fs.cp("file:/tmp/extracted/movies.csv", bronze_output_path)
-```ls.fs.cp("file:/tmp/extracted/movies.csv", bronze_output_path)
 ```
 
 ### 2️⃣ Silver Layer (Transformation)
